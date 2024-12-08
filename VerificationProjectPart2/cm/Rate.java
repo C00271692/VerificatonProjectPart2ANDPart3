@@ -108,6 +108,15 @@ public class Rate {
                 }
             case MANAGEMENT:
                 return totalCost.compareTo(BigDecimal.valueOf(4)) < 0 ? BigDecimal.valueOf(4) : totalCost;
+            case STUDENT:
+                if (totalCost.compareTo(BigDecimal.valueOf(5.5)) <= 0) {
+                    return totalCost;
+                } else {
+
+                    BigDecimal discountableAmount = totalCost.subtract(BigDecimal.valueOf(5.5));
+                    BigDecimal discountedAmount = discountableAmount.multiply(BigDecimal.valueOf(0.75));
+                    return BigDecimal.valueOf(5.5).add(discountedAmount);
+                }
             default:
                 return totalCost;
         }
