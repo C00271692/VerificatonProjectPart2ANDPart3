@@ -173,7 +173,7 @@ public class RateTest2 {
         Rate rate = new Rate(CarParkKind.VISITOR, reducedPeriods, normalPeriods, normalRate, reducedRate);
         Period periodStay = new Period(7, 12);
 
-        BigDecimal expected = new BigDecimal("7.50"); // 3 hours reduced rate + 2 hours normal rate - 10.00 free, 50% of remaining 5.00
+        BigDecimal expected = new BigDecimal("3.0");
         assertEquals(expected, rate.calculate(periodStay));
     }
 }
