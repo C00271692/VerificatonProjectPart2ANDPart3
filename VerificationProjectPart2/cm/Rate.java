@@ -117,6 +117,8 @@ public class Rate {
                     BigDecimal discountedAmount = discountableAmount.multiply(BigDecimal.valueOf(0.75));
                     return BigDecimal.valueOf(5.5).add(discountedAmount);
                 }
+            case STAFF:
+                return totalCost.compareTo(BigDecimal.valueOf(16)) > 0 ? BigDecimal.valueOf(16) : totalCost;
             default:
                 return totalCost;
         }
