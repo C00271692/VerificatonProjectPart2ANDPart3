@@ -176,5 +176,24 @@ public class RateTest2 {
         BigDecimal expected = new BigDecimal("3.0");
         assertEquals(expected, rate.calculate(periodStay));
     }
+
+    @Test
+    void testCalculateManagement() {
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(7, 10));
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(10, 12));
+        BigDecimal normalRate = new BigDecimal("5");
+        BigDecimal reducedRate = new BigDecimal("2");
+
+        Rate rate = new Rate(CarParkKind.MANAGEMENT, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        Period periodStay = new Period(7, 8);
+
+        BigDecimal expected = new BigDecimal("4"); //3 hrs reduced rate @2 + 2 hours normal rate @5
+        assertEquals(expected, rate.calculate(periodStay));
+    }
+
 }
+
+
 
