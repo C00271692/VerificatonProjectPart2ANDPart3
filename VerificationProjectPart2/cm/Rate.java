@@ -21,6 +21,11 @@ public class Rate {
         if (normalRate.compareTo(BigDecimal.ZERO) < 0 || reducedRate.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("A rate cannot be negative");
         }
+        //Bug fix for part 3
+        if (normalRate.compareTo(BigDecimal.TEN) > 0 || reducedRate.compareTo(BigDecimal.TEN) > 0) {
+            throw new IllegalArgumentException("Rates must be less than or equal to 10");
+        }
+
         if (normalRate.compareTo(reducedRate) <= 0) {
             throw new IllegalArgumentException("The normal rate cannot be less or equal to the reduced rate");
         }
@@ -87,12 +92,23 @@ public class Rate {
         }
         return isValid;
     }
+    //Part3 of project, means making changes to this method to facilitate the updated Spec
     public BigDecimal calculate(Period periodStay) {
         int normalRateHours = periodStay.occurences(normal);
         int reducedRateHours = periodStay.occurences(reduced);
-        if (this.kind==CarParkKind.VISITOR) return BigDecimal.valueOf(0);
-        return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
-                this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+        BigDecimal totalCost = (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)))
+                .add(this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+        switch (this.kind) {
+            case VISITOR:
+                if (totalCost.compareTo(BigDecimal.TEN) <= 0) {
+                    return BigDecimal.ZERO;
+                } else {
+                    return totalCost.subtract(BigDecimal.TEN).multiply(BigDecimal.valueOf(0.5));
+                }
+            default:
+                return totalCost;
+        }
     }
 
 }
