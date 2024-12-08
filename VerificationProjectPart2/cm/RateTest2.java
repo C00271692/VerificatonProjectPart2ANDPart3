@@ -209,6 +209,22 @@ public class RateTest2 {
         assertEquals(expected, rate.calculate(periodStay));
     }
 
+    @Test
+    void testCalculateStaff() {
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(7, 10));
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(10, 12));
+        BigDecimal normalRate = new BigDecimal("5");
+        BigDecimal reducedRate = new BigDecimal("2");
+
+        Rate rate = new Rate(CarParkKind.STAFF, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        Period periodStay = new Period(7, 18); // 3 hours reduced rate + 8 hours normal rate
+
+        BigDecimal expected = new BigDecimal("16"); // Maximum payable amount for STAFF
+        assertEquals(expected, rate.calculate(periodStay));
+    }
+
 }
 
 
