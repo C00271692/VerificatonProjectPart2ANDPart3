@@ -144,8 +144,8 @@ public class RateTest2 {
         BigDecimal expected = new BigDecimal("16"); // 3 hours reduced rate + 2 hours normal rate
         assertEquals(expected, rate.calculate(periodStay));
     }
-
-    @Test
+    //Old testCaluclateMethod from part 2 of the verification project
+    /*@Test
     void testCalculateVisitor() {
         ArrayList<Period> reducedPeriods = new ArrayList<>();
         reducedPeriods.add(new Period(7, 10));
@@ -159,5 +159,22 @@ public class RateTest2 {
 
         BigDecimal expected = BigDecimal.ZERO; // Visitor rate is zero
         assertEquals(expected, rate.calculate(periodStay));
+    }  */
+
+    @Test
+    void testCalculateVisitor() {
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(7, 10));
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(10, 12));
+        BigDecimal normalRate = new BigDecimal("5");
+        BigDecimal reducedRate = new BigDecimal("2");
+
+        Rate rate = new Rate(CarParkKind.VISITOR, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        Period periodStay = new Period(7, 12);
+
+        BigDecimal expected = new BigDecimal("7.50"); // 3 hours reduced rate + 2 hours normal rate - 10.00 free, 50% of remaining 5.00
+        assertEquals(expected, rate.calculate(periodStay));
     }
 }
+
