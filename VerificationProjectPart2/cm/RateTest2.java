@@ -193,6 +193,22 @@ public class RateTest2 {
         assertEquals(expected, rate.calculate(periodStay));
     }
 
+    @Test
+    void testCalculateStudent() {
+        ArrayList<Period> reducedPeriods = new ArrayList<>();
+        reducedPeriods.add(new Period(7, 10));
+        ArrayList<Period> normalPeriods = new ArrayList<>();
+        normalPeriods.add(new Period(10, 12));
+        BigDecimal normalRate = new BigDecimal("5");
+        BigDecimal reducedRate = new BigDecimal("2");
+
+        Rate rate = new Rate(CarParkKind.STUDENT, reducedPeriods, normalPeriods, normalRate, reducedRate);
+        Period periodStay = new Period(7, 12);
+
+        BigDecimal expected = new BigDecimal("13.375"); // hope my math here is correct, but could be wrong
+        assertEquals(expected, rate.calculate(periodStay));
+    }
+
 }
 
 
